@@ -28,7 +28,8 @@ module.exports = {
       {
         test: /(\.s[ac]ss|css)$/,
         use: [CssStyleLoader, "css-loader", "postcss-loader", "sass-loader"]
-      }
+      },
+      { test: /\.(png|svg|jpg|jpeg|gif)$/i, type: 'asset/resource' },
     ],
   },
   devtool: isProduction ? false : "source-map",
