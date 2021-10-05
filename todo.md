@@ -6,7 +6,7 @@
 (A) Add interactivity to Welcome page {cm:2021-10-5}
 
 (A) Create Editor View UI {cm:2021-10-05}
-(A) Add theming to Editor
+(A) Add theming to Editor {cm:2021-10-05}
 (A) Create minimap UI
 (A) Add theming to minimap
 (A) Add functionality to minimap

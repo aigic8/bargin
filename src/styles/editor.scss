@@ -123,6 +123,23 @@
   justify-content: center;
 }
 
+body.--dark {
+
+  .actionbar {
+    border: none;
+  }
+
+  .actionbar__btn {
+    border-right: 0.3px solid rgba(255, 255, 255, 0.1);
+
+    &.--right {
+      border: none;
+      border-left: 0.3px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+}
+
 body.debug {
   .actionbar {
     background: lightslategray;
