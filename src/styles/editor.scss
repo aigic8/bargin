@@ -82,6 +82,7 @@
   flex-direction: row;
   padding: 8px;
   overflow-x: scroll;
+  scrollbar-width: none;
 }
 
 .tabbar__btns::-webkit-scrollbar {
