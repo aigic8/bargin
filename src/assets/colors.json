@@ -1,0 +1,22 @@
+{
+  "schemes": {
+    "dark": {
+      "backgroundColor": "#171717",
+      "secondaryBackrgoundColor": "#0c0c0c",
+      "textColor": "#FFF",
+      "goldColor": "#D9AA63"
+    },
+    "light": {
+      "backgroundColor": "#FFF",
+      "secondaryBackrgoundColor": "#FFF",
+      "textColor": "#000",
+      "goldColor": "#D9AA63"
+    }
+  },
+  "ripples": {
+    "black": "#00000022",
+    "white": "#FFFFFF22",
+    "darkBackground": "#17171722",
+    "lightBackround": "#FFFFFF22"
+  }
+}

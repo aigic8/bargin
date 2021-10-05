@@ -1,12 +1,22 @@
-import { ArrowRight, Sun } from "phosphor-react"
 import React from "react"
 import Ripples from "react-ripples"
+import { ArrowRight, Moon, Sun } from "phosphor-react"
+import { useSnapshot } from "valtio"
+import { appState, schemesState } from "../store/appStore"
 
 import EdgeButton from "../assets/EdgeButton"
 import PenIMG from "../assets/images/pen.png"
 import PenBackgroundIMG from "../assets/images/penBackground.svg"
 
 const Welcome = () => {
+  const themeSnap = useSnapshot(appState)
+  const schemesSnap = useSnapshot(schemesState)
+
+  const { rippleScheme, scheme } = schemesSnap
+  const changeThemeBtnIcon = themeSnap.theme === "light" ?
+    <Sun size={36} color={scheme.textColor} weight="light" className="glassButton__icon" />:
+    <Moon size={36} color={scheme.textColor} weight="light" className="glassButton__icon"/>
+  
   return (
     <div className="container">
 
@@ -22,16 +32,16 @@ const Welcome = () => {
 
       <div className="footer">
         <div className="roundWrap">
-          <Ripples>
+          <Ripples color={rippleScheme.normal}>
             <button className="glassButton">
-              <Sun size={36} color="black" weight="light" className="glassButton__icon" />
+              { changeThemeBtnIcon }
             </button>
           </Ripples>
         </div>
         <div className="footer__nextButton" role="button" tabIndex={0}>
-          <Ripples color="#FFFFFF22">
+          <Ripples color={rippleScheme.background}>
             <EdgeButton />
-            <ArrowRight size={26} color="white" weight="light" className="footer__nextButtonIcon" />
+            <ArrowRight size={26} color={scheme.backgroundColor} weight="light" className="footer__nextButtonIcon" />
           </Ripples>
         </div>
       </div>

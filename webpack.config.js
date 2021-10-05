@@ -35,6 +35,9 @@ module.exports = {
   devtool: isProduction ? false : "source-map",
   stats: "minimal",
   devServer: {
-    hot: true
+    hot: true,
+    static: {
+      directory: fromHere("public")
+    }
   }
 }

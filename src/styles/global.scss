@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: var(--backgroundColor);
 }
 
 .roundWrap {
@@ -20,6 +20,10 @@
   align-items: center;
   justify-content: center;
   background: transparent;
+}
+
+.--colorGold {
+  color: var(--goldColor);
 }
 
 body.debug {

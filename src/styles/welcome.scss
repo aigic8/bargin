@@ -2,7 +2,7 @@
   width: 100vw;
   box-sizing: border-box;
   padding: 50px 56px 10px;
-  color: black;
+  color: var(--textColor);
 }
 
 .header__title {
@@ -51,4 +51,18 @@
   position: absolute;
   top: 46px;
   right: 15px;
+}
+
+body.--dark {
+
+  .footer__nextButton {
+    ellipse {
+      fill: var(--goldColor)
+    }
+
+    path {
+      fill: var(--goldColor);
+    }
+  }
+
 }
