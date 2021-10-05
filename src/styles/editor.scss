@@ -219,6 +219,26 @@ body.--dark {
     }
   }
 
+  .minimap__btn {
+  
+    &.--island {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  
+    &.--rangeStart {
+      background: rgba(255, 255, 255, 0.04);
+    } 
+  
+    &.--rangeEnd {
+      background: rgba(255, 255, 255, 0.04);
+    }
+  
+    &.--rangeMiddle {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+  }
+
 }
 
 body.debug {
