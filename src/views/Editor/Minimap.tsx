@@ -2,21 +2,29 @@ import React from "react"
 import Ripples from "react-ripples"
 import { useSnapshot } from "valtio"
 import { schemesState } from "../../store/appStore"
+import { activeFileState, isInSelection, isIsland, Range } from "../../store/editorStore"
+
+type MinimapBtnType = "normal" | "island" | "rangeStart" | "rangeMiddle" | "rangeEnd"
 
 const Minimap = () => {
   const schemeSnap = useSnapshot(schemesState)
+  const activeFileSnap = useSnapshot(activeFileState)
+
+  const { activeFile } = activeFileSnap
   const { rippleScheme } = schemeSnap
   const PAGES_COUNT = 30
+
+  if(!activeFile)
+    return <></>
   
   const btns = new Array(PAGES_COUNT).fill(0).map((_, i) => {
-    let btnClass = "minimap__btn"
-    const wrapClas = (i <= 7 && i >= 3) ? "minimap__btnWrap --sharp" : "minimap__btnWrap"
-    if(i === 3) btnClass += " --rangeStart"
-    else if(i < 7 && i > 3) btnClass += " --rangeMiddle"
-    else if(i === 7) btnClass += " --rangeEnd"
-    else if(i === 1) btnClass += " --island"
+    const page = i + 1
+    const btnType = makeBtnType(page, activeFile.selection)
+    const btnClass = `minimap__btn --${btnType}`
+    const wrapClass = (btnType != "normal" && btnType != "island")? 
+      "minimap__btnWrap --sharp" : "minimap__btnWrap"
     return (
-      <div key={i} className={wrapClas}>
+      <div key={i} className={wrapClass}>
         <Ripples color={rippleScheme.normal}>
           <button className={btnClass}>{i + 1}</button>
         </Ripples>
@@ -32,3 +40,12 @@ const Minimap = () => {
 }
 
 export default Minimap
+
+const makeBtnType = (page: number, selection: Range[]): MinimapBtnType => {
+  const range = isInSelection(page, selection)
+  if(!range) return "normal"
+  if(isIsland(range)) return "island"
+  if(range[0] === page) return "rangeStart"
+  if(range[1] === page) return "rangeEnd"
+  return "rangeMiddle"
+}
