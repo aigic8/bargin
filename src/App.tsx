@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
 import { useSnapshot } from "valtio"
 import { appState, schemesState } from "./store/appStore"
-import Welcome from "./views/Welcome"
+import Editor from "./views/Editor/Editor"
+// import Welcome from "./views/Welcome"
 
 const App = () => {
   const schemeSnap = useSnapshot(schemesState)
@@ -16,7 +17,7 @@ const App = () => {
     if(theme === "dark") document.body.classList.add("--dark")
     else document.body.classList.remove("--dark")
   }, [scheme, theme])
-  return <Welcome />
+  return <Editor />
 }
 
 export default App

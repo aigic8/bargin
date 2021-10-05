@@ -5,8 +5,10 @@
 (A) Create theme functionality {cm:2021-10-05}
 (A) Add interactivity to Welcome page {cm:2021-10-5}
 
-(A) Create Editor View UI
-(A) create minimap UI
+(A) Create Editor View UI {cm:2021-10-05}
+(A) Add theming to Editor
+(A) Create minimap UI
+(A) Add theming to minimap
 (A) Add functionality to minimap
 (A) Add functionality to output list
 (A) Add functionality to actionbar

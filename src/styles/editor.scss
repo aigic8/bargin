@@ -1,0 +1,141 @@
+////////////////////////////////
+/////////// ACTIONBAR //////////
+///////////////////////////////
+.actionbar {
+  position: fixed;
+  bottom: 63px;
+  left: 25px;
+  display: flex;
+  width: calc(100vw - 50px);
+  border-radius: 10px;
+  height: 40px;
+  border: 0.3px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: var(--secondaryBackrgoundColor);
+}
+
+.actionbar__btn {
+  border-radius: 10px 0 0 10px;
+  border: none;
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-right: 0.3px solid rgba(0, 0, 0, 0.1);
+  background: transparent;
+  font: 300 0.875rem "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--textColor);
+
+  &.--right {
+    border: none;
+    border-radius: 0 10px 10px 0;
+    border-left: 0.3px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &.--active {
+    background: black;
+  }
+}
+
+.actionbar__actions {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/////////////////////////////
+/////////// TABBAR //////////
+/////////////////////////////
+.tabbarBorder {
+  position: fixed;
+  bottom: 0.3px;
+  left: 0;
+  width: 100vw;
+  height: 63px;
+  background: black;
+  clip-path: url("#tabbarClipper");
+  opacity: 0.1;
+}
+
+.tabbar {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  width: 100vw;
+  height: 63px;
+  display: flex;
+  flex-direction: row;
+  background: var(--secondaryBackrgoundColor);
+  clip-path: url("#tabbarClipper");
+  overflow: hidden;
+}
+
+.tabbar__btns {
+  flex: 1;
+  margin-top: 15px;
+  height: 48px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  overflow-x: scroll;
+}
+
+.tabbar__btns::-webkit-scrollbar {
+  display: none;
+}
+
+.tabbar__btns > * {
+  margin: 0 8px;
+  flex-shrink: 0;
+}
+
+.tabbar__btns:first-child {
+  margin-left: 12px;
+}
+
+.tabbar__btn {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  font: 300 0.875rem "Poppins", sans-serif;
+  color: var(--textColor);
+  opacity: 0.25;
+
+  &.--active {
+    opacity: 1;
+  }
+}
+
+.tabbar__mainBtn {
+  background: black;
+  color: white;
+  border: none;
+  font: 500 1rem "Poppins", sans-serif;
+  padding: 15px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.debug {
+  .actionbar {
+    background: lightslategray;
+  }
+
+  .actionbar__btn {
+    background:palegoldenrod;
+  }
+
+  .tabbar {
+    background:lightslategray;
+  }
+
+  .tabbar__btns {
+    background:palegoldenrod;
+  }
+}
