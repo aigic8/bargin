@@ -22,7 +22,7 @@ const Welcome = () => {
 
       <header className="header">
         <div className="header__title">Bargin<span className="--colorGold">.</span></div>
-        <div className="header__slogan">PDF EDITING DONE CLEAN!</div>
+        <div className="header__slogan">PDF EDITING DONE CLEAN</div>
       </header>
 
       <div className="penPart">
