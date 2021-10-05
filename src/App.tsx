@@ -1,11 +1,8 @@
 import React from "react"
+import Welcome from "./views/Welcome"
 
 const App = () => {
-  return (
-    <div>
-      <h1>Hello there how can I help U from APP?</h1>
-    </div>
-  )
+  return <Welcome />
 }
 
 export default App

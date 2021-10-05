@@ -1,0 +1,54 @@
+.header {
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 50px 56px 10px;
+  color: black;
+}
+
+.header__title {
+  font: 600 4rem "Cormorant", serif;
+  margin: 0;
+}
+
+.header__slogan {
+  font: 300 0.875rem "Poppins", sans-serif;
+  opacity: 0.3;
+}
+
+.penPart {
+  position: relative;
+  flex: 1;
+}
+
+.penPart__background {
+  position: absolute;
+  width: 100vw;
+  max-height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.penPart__pen {
+  position: absolute;
+  height: 110%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0  50px 50px;
+}
+
+.footer__nextButton {
+  position: relative;
+}
+
+.footer__nextButtonIcon {
+  position: absolute;
+  top: 46px;
+  right: 15px;
+}

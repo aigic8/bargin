@@ -1,0 +1,35 @@
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.roundWrap {
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-flex;
+}
+
+.glassButton {
+  border-radius: 50%;
+  border: none;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+body.debug {
+
+  .container {
+    background:salmon;
+  }
+
+  .glassButton {
+    background:orchid;
+  }
+
+}

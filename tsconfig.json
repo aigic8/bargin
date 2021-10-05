@@ -12,6 +12,6 @@
     "jsx": "react",
     "incremental": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "./src/index.d.ts"],
   "exclude": ["build", "node_modules"]
 }
