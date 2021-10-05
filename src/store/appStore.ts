@@ -22,3 +22,9 @@ export const schemesState = derive({
   scheme: get => get(appState).theme === "light" ? schemes.light : schemes.dark,
   rippleScheme: get => get(appState).theme === "light" ? lightThemeRipples : darkThemeRipples,
 })
+
+export const toggleTheme = () => {
+  const newTheme = appState.theme === "light" ? "dark" : "light"
+  localStorage.setItem("theme", newTheme)
+  appState.theme = newTheme
+}

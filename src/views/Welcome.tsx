@@ -2,7 +2,7 @@ import React from "react"
 import Ripples from "react-ripples"
 import { ArrowRight, Moon, Sun } from "phosphor-react"
 import { useSnapshot } from "valtio"
-import { appState, schemesState } from "../store/appStore"
+import { appState, schemesState, toggleTheme } from "../store/appStore"
 
 import EdgeButton from "../assets/EdgeButton"
 import PenIMG from "../assets/images/pen.png"
@@ -33,7 +33,7 @@ const Welcome = () => {
       <div className="footer">
         <div className="roundWrap">
           <Ripples color={rippleScheme.normal}>
-            <button className="glassButton">
+            <button className="glassButton" onClick={toggleTheme}>
               { changeThemeBtnIcon }
             </button>
           </Ripples>
