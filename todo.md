@@ -7,7 +7,7 @@
 
 (A) Create Editor View UI {cm:2021-10-05}
 (A) Add theming to Editor {cm:2021-10-05}
-(A) Create minimap UI
+(A) Create minimap UI {cm:2021-10-05}
 (A) Add theming to minimap
 (A) Add functionality to minimap
 (A) Add functionality to output list

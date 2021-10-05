@@ -1,12 +1,17 @@
+$actionbar-spacing: 25px;
+
+$minimap-width: 40px;
+$minimap-radius: 8px;
+
 ////////////////////////////////
 /////////// ACTIONBAR //////////
 ///////////////////////////////
 .actionbar {
   position: fixed;
   bottom: 63px;
-  left: 25px;
+  left: $actionbar-spacing;
   display: flex;
-  width: calc(100vw - 50px);
+  width: calc(100vw - #{$actionbar-spacing * 2});
   border-radius: 10px;
   height: 40px;
   border: 0.3px solid rgba(0, 0, 0, 0.1);
@@ -45,6 +50,82 @@
   align-items: center;
   justify-content: center;
 }
+
+
+////////////////////////////////
+/////////// MINIMAP ///////////
+//////////////////////////////
+
+.minimap {
+  position: fixed;
+  left: $actionbar-spacing;
+  bottom: 118px;
+  width: $minimap-width;
+  height: 240px;
+  border: 0.3px solid rgba(0, 0, 0, 0.1);
+  background: var(--secondaryBackrgoundColor);
+  scrollbar-width: none;
+  border-radius: $minimap-radius;
+}
+
+.minimap__list {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: scroll;
+  scrollbar-width: none;
+  border-radius: $minimap-radius;
+}
+
+.minimap__list::-webkit-scrollbar {
+  display: none;
+}
+
+.minimap__btnWrap {
+  width: $minimap-width;
+  height: $minimap-width;
+  overflow: hidden;
+  display: inline-flex;
+  border-radius: $minimap-radius;
+
+  &.--sharp {
+    border-radius:  0;
+  }
+}
+
+.minimap__btn {
+  position: relative;
+  width: $minimap-width;
+  height: $minimap-width;
+  background: transparent;
+  border: none;
+  font: 300 0.875rem "Poppins", sans-serif;
+  color: var(--textColor);
+  user-select: none;
+
+  &.--island {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  &.--rangeStart {
+    background: black;
+    color: white;
+    border-radius: $minimap-radius $minimap-radius 0 0;
+  } 
+
+  &.--rangeEnd {
+    background: black;
+    color: white;
+    border-radius: 0 0 $minimap-radius $minimap-radius;
+  }
+
+  &.--rangeMiddle {
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
 
 /////////////////////////////
 /////////// TABBAR //////////
@@ -155,5 +236,27 @@ body.debug {
 
   .tabbar__btns {
     background:palegoldenrod;
+  }
+
+  .minimap {
+    background: burlywood;
+  }
+
+  .minimap__btn {
+    &.--island {
+      background: coral;
+    }
+
+    &.--rangeStart {
+      background: coral;
+    }
+
+    &.--rangeEnd {
+      background: coral;
+    }
+
+    &.--rangeMiddle {
+      background: palevioletred;
+    }
   }
 }
