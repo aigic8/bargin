@@ -18,7 +18,7 @@ const Minimap = () => {
     const page = i + 1
     const btnType = makeBtnType(page, editorSnap.tempRangeStart, activeFile.selection)
     return (
-      <MinimapBtn type={btnType} page={page} onTap={pushToSelection}/>
+      <MinimapBtn key={i} type={btnType} page={page} onTap={pushToSelection}/>
     )
   })
 
