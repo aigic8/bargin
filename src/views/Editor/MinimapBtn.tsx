@@ -3,6 +3,7 @@ import Ripples from "react-ripples"
 import { useSnapshot } from "valtio"
 import nightWatch from "../../libs/nightWatch"
 import { schemesState } from "../../store/appStore"
+import MinimapOverlay from "./MinimapOverlay"
 
 export type MinimapBtnType = "normal" | "island" | "rangeStart" | "rangeMiddle" | "rangeEnd"
 type Handler = (page: number, pos: number[]) => any
@@ -37,11 +38,14 @@ const MinimapBtn = ({ page, type, onTap, onDragStart, onDrag, onDragEnd }: Minim
   const wrapClass = isSharp ? "minimap__btnWrap --sharp" : "minimap__btnWrap"
 
   return (
+    <>
     <div className={wrapClass}>
       <Ripples color={rippleScheme.normal}>
         <button ref={btnRef} className={btnClass}>{page}</button>
       </Ripples>
     </div>
+      <MinimapOverlay range={[2, 5]} activePage={4} scrollTop={0} />
+    </>
   )
 }
 

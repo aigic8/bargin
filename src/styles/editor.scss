@@ -126,6 +126,38 @@ $minimap-radius: 8px;
   }
 }
 
+/////////// OVERLAY //////////
+.minimapOverlay {
+  position: fixed;
+  left: $actionbar-spacing;
+  bottom: 118px;
+  width: $minimap-width;
+  height: 240px;
+  background: transparent;
+  overflow: hidden;
+  scrollbar-width: none;
+  border-radius: $minimap-radius;
+}
+
+.minimapOverlay__group {
+  position: absolute;
+  width: $minimap-width;
+  border-radius: $minimap-radius;
+  background: var(--textColor);
+  overflow: hidden;
+}
+
+.minimapOverlay__item {
+  height: $minimap-width;
+  width: $minimap-width;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 500 0.875rem "Poppins", sans-serif;
+  color: var(--backgroundColor);
+  user-select: none;
+}
+
 
 /////////////////////////////
 /////////// TABBAR //////////
