@@ -1,18 +1,14 @@
-import React, { useCallback } from "react"
-import Ripples from "react-ripples"
+import React from "react"
 import { useSnapshot } from "valtio"
-import { schemesState } from "../../store/appStore"
 import { activeFileState, editorState, isInSelection, isIsland, pushToSelection, Range } from "../../store/editorStore"
+import MinimapBtn, { MinimapBtnType } from "./MinimapBtn"
 
-type MinimapBtnType = "normal" | "island" | "rangeStart" | "rangeMiddle" | "rangeEnd"
 
 const Minimap = () => {
-  const schemeSnap = useSnapshot(schemesState)
   const activeFileSnap = useSnapshot(activeFileState)
   const editorSnap = useSnapshot(editorState)
 
   const { activeFile } = activeFileSnap
-  const { rippleScheme } = schemeSnap
   const PAGES_COUNT = 30
 
   if(!activeFile)
@@ -21,15 +17,8 @@ const Minimap = () => {
   const btns = new Array(PAGES_COUNT).fill(0).map((_, i) => {
     const page = i + 1
     const btnType = makeBtnType(page, editorSnap.tempRangeStart, activeFile.selection)
-    const btnClass = `minimap__btn --${btnType}`
-    const wrapClass = (btnType != "normal" && btnType != "island")? 
-      "minimap__btnWrap --sharp" : "minimap__btnWrap"
     return (
-      <div key={i} className={wrapClass}>
-        <Ripples color={rippleScheme.normal}>
-          <button className={btnClass} onClick={() => pushToSelection(page)}>{page}</button>
-        </Ripples>
-      </div>
+      <MinimapBtn type={btnType} page={page} onTap={pushToSelection}/>
     )
   })
 
