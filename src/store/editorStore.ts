@@ -30,7 +30,8 @@ export const editorState = proxy({
     scrollTop: 0,
     activePage: -1,
     range: [0,0] as Range,
-    translate: [] as number[]
+    translate: [] as number[],
+    single: false,
   }
 })
 

@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from "react"
+import React, { useCallback, useRef } from "react"
 import { useSnapshot } from "valtio"
-import { activeFileState, editorState, isInSelection, isIsland, pushToSelection, Range } from "../../store/editorStore"
+import { activeFileState, editorState, InputState, isInSelection, isIsland, pushToSelection, Range } from "../../store/editorStore"
 import MinimapBtn, { MinimapBtnType } from "./MinimapBtn"
 import MinimapOverlay from "./MinimapOverlay"
 
@@ -9,28 +9,33 @@ const Minimap = () => {
   const activeFileSnap = useSnapshot(activeFileState)
   const editorSnap = useSnapshot(editorState)
   const listRef = useRef<HTMLDivElement>(null)
-  const [isOverlaySingle, setIsOverlaySingle] = useState(false)
-  const isOverlaySingleRef = useRef<boolean>(false)
+  const activeFileRef = useRef<InputState>()
+  const singleRef = useRef<boolean>()
 
 
   const { activeFile } = activeFileSnap
+  activeFileRef.current = activeFile
+  singleRef.current = editorSnap.overlayState.single
   const PAGES_COUNT = 30
 
   const onDragStart = useCallback((page: number) => {
-    const range = isInSelection(page, activeFile.selection)
+    const currFile = activeFileRef.current
+    if(!currFile) return
+    const range = isInSelection(page, currFile.selection)
     if(!range || !listRef.current) return
     navigator.vibrate(100)
     lockScroll(listRef.current)
     const { scrollTop } = listRef.current
-    editorState.overlayState = { scrollTop, range, activePage: page, translate: [0, 0], visible: true }
-  }, [listRef.current, activeFile.selection])
+    editorState.overlayState = 
+      { scrollTop, range, activePage: page, translate: [0, 0], visible: true, single: false }
+  }, [listRef.current, activeFileRef.current])
 
   const onDrag = useCallback((_page, { offset }: { offset: number[] }) => {
-    const currState = isOverlaySingleRef.current
-    if(offset[0] > 10 && !currState) {setIsOverlaySingle(true); isOverlaySingleRef.current = true}
-    if(offset[0] <= 10 && currState) {setIsOverlaySingle(false); isOverlaySingleRef.current = false}
+    const single = singleRef.current
+    if(offset[0] > 10 && !single) {editorState.overlayState.single = true; singleRef.current = true}
+    else if(offset[0] <= 10 && single) {editorState.overlayState.single = false; singleRef.current = false}
     editorState.overlayState.translate = [offset[0], 0]
-  }, [isOverlaySingle, setIsOverlaySingle])
+  }, [singleRef.current])
 
   const onDragEnd = useCallback(() => {
     if(listRef.current) unlockScroll(listRef.current)
@@ -44,9 +49,8 @@ const Minimap = () => {
     const page = i + 1
     const type = makeBtnType(page, editorSnap.tempRangeStart, activeFile.selection)
     const onTap = pushToSelection
-    const watchList = [activeFile.selection]
     return (
-      <MinimapBtn key={i} {...{type, page, onTap, onDragStart, onDrag, onDragEnd, watchList}}/>
+      <MinimapBtn key={i} {...{type, page, onTap, onDragStart, onDrag, onDragEnd}}/>
     )
   })
 
@@ -56,7 +60,7 @@ const Minimap = () => {
     <div className="minimap">
       <div ref={listRef} className="minimap__list" children={btns} />
     </div>
-    { visible && <MinimapOverlay {...overlayProps} single={isOverlaySingle} /> }
+    { visible && <MinimapOverlay {...overlayProps} /> }
     </>
   )
 }

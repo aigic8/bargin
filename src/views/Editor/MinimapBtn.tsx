@@ -11,14 +11,13 @@ type DragHandler = (page: number, args: {pos: number[], offset: number[]}) => an
 interface MinimapBtnProps {
   page: number
   type: MinimapBtnType
-  watchList: any[]
   onTap?: Handler
   onDragStart?: Handler
   onDrag?: DragHandler
   onDragEnd?: DragHandler
 }
 
-const MinimapBtn = ({ page, type, watchList, onTap, onDragStart, onDrag, onDragEnd }: MinimapBtnProps) => {
+const MinimapBtn = ({ page, type, onTap, onDragStart, onDrag, onDragEnd }: MinimapBtnProps) => {
   const schemeSnap = useSnapshot(schemesState)
   const btnRef = useRef<HTMLButtonElement>(null)
 
@@ -30,7 +29,7 @@ const MinimapBtn = ({ page, type, watchList, onTap, onDragStart, onDrag, onDragE
       onDragEnd: (args) => onDragEnd && onDragEnd(page, args),
     })
     return clear
-  }, watchList)
+  }, [])
 
   const { rippleScheme } = schemeSnap
   const btnClass = `minimap__btn --${type}`
