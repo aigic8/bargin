@@ -50,7 +50,15 @@ const nightWatch = (ref: RefObject<HTMLElement>, options: WatchOptions) => {
     onDragEnd && onDragEnd({ offset, pos })
   })
 
-  return () => {console.log("REFRESH"); hammer.stop(true); hammer.destroy(); isDragging = false}
+  hammer.on("pressup", ev => {
+    console.log("PRESSUP")
+    if(!isDragging) return
+    isDragging = false
+    const pos = [ev.center.x, ev.center.y]
+    onDragEnd && onDragEnd({ offset: [0, 0], pos })
+  })
+
+  return () => {console.log("REFRESH"); hammer.stop(true); hammer.destroy(); isDragging = false;}
 }
 
 export default nightWatch
