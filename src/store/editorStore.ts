@@ -19,9 +19,7 @@ export const inputsState = proxy<{[key: string]: InputState}>({
   }
 })
 
-// I liked it more if overlayState was in minimap component and created with
-// react useState. But that method created wired bugs.
-// If you can, rewrite it that way
+
 export const editorState = proxy({
   activeId: "random",
   tempRangeStart: -1,
@@ -55,6 +53,33 @@ export const toggleActiveSelectionType = function() {
   const currSelectionType = inputsState[editorState.activeId].selectionType
   inputsState[editorState.activeId].selectionType = toggleSelectionMap[currSelectionType]
 }
+
+export const popFromSelection = (pRangeOverflow: Range) => {
+  if(!activeFileState.activeFile) return
+  const range = isInSelection(pRangeOverflow[0], activeFileState.activeFile.selection)
+  if(!range) return
+  const pRange = strictRangeIn(pRangeOverflow, range[0], range[1]) // Solve possible bug of overflow in range
+  const pRangeCount = pRange[1] - pRange[0]
+  const rangeCount = range[1] - range[0]
+  const i = activeFileState.activeFile.selection.findIndex((curr) => isInRange(range[0], curr))
+
+  if(pRangeCount === rangeCount) {
+    inputsState[editorState.activeId].selection.splice(i, 1)
+  } else if (pRange[0] === range[0]) {
+    inputsState[editorState.activeId].selection[i] = [pRange[1] + 1, range[1]]
+  } else if (pRange[1] === range[1]) {
+    inputsState[editorState.activeId].selection[i] = [range[0], pRange[0] - 1]
+  } else {
+    const firstPart = [range[0], pRange[0] - 1]
+    const secondPart = [pRange[1] + 1, range[1]]
+    inputsState[editorState.activeId].selection[i] = firstPart
+    inputsState[editorState.activeId].selection.push(secondPart)
+  }
+}
+
+const strictRangeIn = (range: Range, start: number, end: number) => {
+  return [Math.max(range[0], start), Math.min(range[1], end)]
+} 
 
 export const pushToSelection = (page: number) => {
   const { tempRangeStart } = editorState

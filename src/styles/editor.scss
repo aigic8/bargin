@@ -126,6 +126,11 @@ $minimap-radius: 8px;
   }
 }
 
+.minimap__list.--noSelection .minimap__btn {
+  background: var(--secondaryBackrgoundColor);
+  color: var(--textColor);
+}
+
 /////////// OVERLAY //////////
 .minimapOverlay {
   position: fixed;

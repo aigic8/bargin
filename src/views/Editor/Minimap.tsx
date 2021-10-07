@@ -1,9 +1,10 @@
 import React, { useCallback, useRef } from "react"
 import { useSnapshot } from "valtio"
-import { activeFileState, editorState, InputState, isInSelection, isIsland, pushToSelection, Range } from "../../store/editorStore"
+import { activeFileState, editorState, InputState, isInSelection, isIsland, popFromSelection, pushToSelection, Range } from "../../store/editorStore"
 import MinimapBtn, { MinimapBtnType } from "./MinimapBtn"
 import MinimapOverlay from "./MinimapOverlay"
 
+const POP_THRESHHOLD = 28
 
 const Minimap = () => {
   const activeFileSnap = useSnapshot(activeFileState)
@@ -39,10 +40,18 @@ const Minimap = () => {
     editorState.overlayState.translate = [offset[0], 0]
   }, [singleRef.current])
 
-  const onDragEnd = useCallback(() => {
+  const onDragEnd = useCallback((page: number, { offset }: { offset: number[] }) => {
+    if(activeFileRef.current) {
+      const range = isInSelection(page, activeFileRef.current.selection)
+      if(range) {
+        if(Math.abs(offset[0]) < POP_THRESHHOLD) {}
+        else if(offset[0] > POP_THRESHHOLD) popFromSelection([page, page])
+        else popFromSelection(range)
+      }
+    }
     if(listRef.current) unlockScroll(listRef.current)
     editorState.overlayState.visible = false
-  }, [listRef.current])
+  }, [listRef.current, activeFileRef.current.selection])
 
   if(!activeFile)
     return <></>
@@ -57,10 +66,11 @@ const Minimap = () => {
   })
 
   const { visible, ...overlayProps } = editorSnap.overlayState
+  const listClass = visible ? "minimap__list --noSelection" : "minimap__list"
   return (
     <>
     <div className="minimap">
-      <div ref={listRef} className="minimap__list" children={btns} />
+      <div ref={listRef} className={listClass} children={btns} />
     </div>
     { visible && <MinimapOverlay {...overlayProps} /> }
     </>
