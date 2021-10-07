@@ -19,9 +19,19 @@ export const inputsState = proxy<{[key: string]: InputState}>({
   }
 })
 
+// I liked it more if overlayState was in minimap component and created with
+// react useState. But that method created wired bugs.
+// If you can, rewrite it that way
 export const editorState = proxy({
   activeId: "random",
-  tempRangeStart: -1
+  tempRangeStart: -1,
+  overlayState: {
+    visible: false,
+    scrollTop: 0,
+    activePage: -1,
+    range: [0,0] as Range,
+    translate: [] as number[]
+  }
 })
 
 export const activeFileState = derive({
