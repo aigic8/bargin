@@ -3,6 +3,7 @@ import { RefObject } from "react"
 
 type Handler = (pos: number[]) => any
 type DragHandler = (args: { pos: number[], offset: number[] }) => any
+const PRESS_THRESHHOLD = 250
 
 interface WatchOptions {
   onTap?: Handler,
@@ -18,8 +19,8 @@ const nightWatch = (ref: RefObject<HTMLElement>, options: WatchOptions) => {
   if(!ref.current) return () => {}
 
   const hammer = new Hammer(ref.current)
-  hammer.get("tap").set({ time: 500 })
-  hammer.get("press").set({ time: 501 })
+  hammer.get("tap").set({ time: PRESS_THRESHHOLD })
+  hammer.get("press").set({ time: PRESS_THRESHHOLD + 1 })
 
   hammer.on("tap", ev => {
     console.log("TAP")
