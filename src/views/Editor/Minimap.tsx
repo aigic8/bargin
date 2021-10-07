@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react"
+import React, { useCallback, useRef, useState } from "react"
 import { useSnapshot } from "valtio"
 import { activeFileState, editorState, isInSelection, isIsland, pushToSelection, Range } from "../../store/editorStore"
 import MinimapBtn, { MinimapBtnType } from "./MinimapBtn"
@@ -9,6 +9,8 @@ const Minimap = () => {
   const activeFileSnap = useSnapshot(activeFileState)
   const editorSnap = useSnapshot(editorState)
   const listRef = useRef<HTMLDivElement>(null)
+  const [isOverlaySingle, setIsOverlaySingle] = useState(false)
+  const isOverlaySingleRef = useRef<boolean>(false)
 
 
   const { activeFile } = activeFileSnap
@@ -24,8 +26,11 @@ const Minimap = () => {
   }, [listRef.current, activeFile.selection])
 
   const onDrag = useCallback((_page, { offset }: { offset: number[] }) => {
+    const currState = isOverlaySingleRef.current
+    if(offset[0] > 10 && !currState) {setIsOverlaySingle(true); isOverlaySingleRef.current = true}
+    if(offset[0] <= 10 && currState) {setIsOverlaySingle(false); isOverlaySingleRef.current = false}
     editorState.overlayState.translate = [offset[0], 0]
-  }, [])
+  }, [isOverlaySingle, setIsOverlaySingle])
 
   const onDragEnd = useCallback(() => {
     if(listRef.current) unlockScroll(listRef.current)
@@ -51,7 +56,7 @@ const Minimap = () => {
     <div className="minimap">
       <div ref={listRef} className="minimap__list" children={btns} />
     </div>
-    { visible && <MinimapOverlay {...overlayProps} /> }
+    { visible && <MinimapOverlay {...overlayProps} single={isOverlaySingle} /> }
     </>
   )
 }

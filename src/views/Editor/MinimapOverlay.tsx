@@ -6,11 +6,12 @@ interface MinimapOverlayProps {
   activePage: number
   scrollTop: number
   translate: number[]
+  single: boolean
 }
 
 const SIZE = 40
 
-const MinimapOverlay = ({ range, activePage, scrollTop, translate: t } : MinimapOverlayProps) => {
+const MinimapOverlay = ({ single, range, activePage, scrollTop, translate: t } : MinimapOverlayProps) => {
   const count = range[1] - range[0] + 1
   const rangeTop = (range[0] - 1) * SIZE - scrollTop
   const rangeHeight = count * SIZE
@@ -25,9 +26,13 @@ const MinimapOverlay = ({ range, activePage, scrollTop, translate: t } : Minimap
 
   return (
     <div className="minimapOverlay" style={{ transform: `translate(${t[0]}px, ${t[1]}px)` }}>
-      <div className="minimapOverlay__group" style={{ height: rangeHeight, top: rangeTop }}>
-        { rangeItems }
-      </div>
+      {
+        !single && (
+          <div className="minimapOverlay__group" style={{ height: rangeHeight, top: rangeTop }}>
+            { rangeItems }
+          </div>
+        )
+      }
       <div className="minimapOverlay__group" style={{ height: itemHeight, top: itemTop }}>
         <div className="minimapOverlay__item">{ activePage }</div>
       </div>
