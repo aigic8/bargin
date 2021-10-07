@@ -32,8 +32,10 @@ const Minimap = () => {
 
   const onDrag = useCallback((_page, { offset }: { offset: number[] }) => {
     const single = singleRef.current
-    if(offset[0] > 10 && !single) {editorState.overlayState.single = true; singleRef.current = true}
-    else if(offset[0] <= 10 && single) {editorState.overlayState.single = false; singleRef.current = false}
+    if(offset[0] > 10 && !single) 
+      {editorState.overlayState.single = true; singleRef.current = true}
+    else if(offset[0] <= 10 && single) 
+      {editorState.overlayState.single = false; singleRef.current = false}
     editorState.overlayState.translate = [offset[0], 0]
   }, [singleRef.current])
 
